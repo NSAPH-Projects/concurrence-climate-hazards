@@ -33,6 +33,7 @@ def trend_plot(trends_df, l, hotspot, title, year_min='2006', year_max='2021'):
     plt.title(title)
     plt.xlim([pd.to_datetime(year_min), pd.to_datetime(year_max)])
     plt.tight_layout()
+    plt.savefig("figures/trends_"+title+".png")
 
 
 def draw_map(df, counties, hotspot, title):
@@ -53,7 +54,7 @@ def draw_map(df, counties, hotspot, title):
     #fig.update_layout(width=100, title_text="Side By Side Subplots")
     fig.update_layout(margin={"r":0,"l":0,"b":0})
     fig.show()
-    fig.write_image("figures/"+title+".png")
+    fig.write_image("figures/maps"+title+".png")
     
     
 if __name__ == "__main__":
