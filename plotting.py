@@ -63,7 +63,7 @@ def draw_map(df, counties, hotspot, title):
     #fig.update_layout(width=100, title_text="Side By Side Subplots")
     fig.update_layout(margin={"r":0,"l":0,"b":0})
     fig.show()
-    fig.write_image("figures/maps"+title+".png")
+    fig.write_image("figures/maps_"+hotspot+"_hotspot.png")
     
     
 if __name__ == "__main__":
