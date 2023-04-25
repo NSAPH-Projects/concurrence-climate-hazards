@@ -15,7 +15,16 @@ def get_counties():
     with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
         counties = json.load(response)
     return counties
-    
+
+def get_hotspopt_dict():
+    hsdict = {
+        "hwp":"Total days of Heat & Wildfire & Pollution",
+        "hws":"Total days of Heat & Wildfire & Smoke PM 25",
+        "hp":"Total days of Heat & Pollution",
+        "hw":"Total days of Heat & Wildfire",
+        "ws":"Total days of Wildfire & Smoke PM 25",
+                  }
+    return hsdict
 
 def trend_plot(trends_df, l, hotspot, title, year_min='2006', year_max='2021'):
     plt.figure(1, figsize = (4,3))
