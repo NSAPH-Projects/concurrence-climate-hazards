@@ -72,10 +72,10 @@ def trend_plot(trends_df, l, hotspot, title, year_min='2006', year_max='2021'):
     sns.lineplot(data = trends_df, x="time", y=hotspot, ax=ax)
 
     sns.lineplot(data = trends_df[
-        trends_df.COUNTY_CODE.isin(l)], 
+        trends_df.FIPS.isin(l)], 
                  x="time", 
                  y=hotspot, 
-                 hue="COUNTY_CODE", 
+                 hue="FIPS", 
                  palette="tab10",
                  ax=ax)
 
