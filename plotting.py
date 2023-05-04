@@ -33,6 +33,10 @@ def get_hotspopt_dict():
             "year_min":'2007',
             "year_max":'2021'},
         "hp":{"title":"heat & pollution", "title_map":"Total days of heat & pollution", "year_min":'2007', "year_max":'2021'},
+        "hs":{"title":"heat & smoke pollution",
+            "title_map":"Total days of heat & smoke pollution",
+            "year_min":'2007',
+            "year_max":'2021'},
         "hw":{"title":"heat & wildfire", "title_map":"Total days of heat & wildfire", "year_min":'2007', "year_max":'2022'},
         "ws":{
             "title":"wildfire & smoke pollution", 
