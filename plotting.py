@@ -89,6 +89,59 @@ def get_hotspopt_dict():
     return hsdict
 
 
+def get_hotspopt_dict_county():
+    hsdict = {
+        "wfday": {
+            "title": "wildfire",
+            "title_map": "Total days of wildfire",
+        },
+        "heatday": {
+            "title": "heat",
+            "title_map": "Total days of heat (over 95th percentile over last 5 years)",
+        },
+        "coldday": {
+            "title": "cold",
+            "title_map": "Total cold days (under 5th percentile over last 5 years)",
+        },
+        "polluted": {
+            "title": "pollution",
+            "title_map": "Total days of high air pollution (over 35 μg/m3)",
+        },
+        "smoke_polluted": {
+            "title": "smoke_polluted",
+            "title_map": "Total days of smoke pollution",
+        },
+        "hwp": {
+            "title": "heat_wildfire_pollution",
+            "title_map": "Total days of heat, wildfire and pollution concurrence",
+        },
+        "hws": {
+            "title": "heat_wildfire_smoke_pollution_non_zero",
+            "title_map": "Total days of heat, wildfire and non-zero smoke pollution concurrence",
+        },
+        "hp": {
+            "title": "heat_pollution",
+            "title_map": "Total days of heat and pollution concurrence",
+        },
+        "hs": {
+            "title": "heat_smoke_pollution_non_zero",
+            "title_map": "Total days of heat and non-zero smoke pollution concurrence",
+        },
+        "hw": {
+            "title": "heat_wildfire",
+            "title_map": "Total days of heat and wildfire concurrence",
+        },
+        "ws": {
+            "title": "wildfire_smoke_pollution_non_zero",
+            "title_map": "Total days of wildfire & smoke pollution",
+        },
+        "hwps": {
+            "title": "heat_wildfire_pollution",
+            "title_map": "Totay days of heat or wildfire or pollution",
+        },
+    }
+    return hsdict
+
 def statePlot(df, data, title, cmap, zoom, dpi):
     f,ax = plt.subplots(1,1, figsize=(8,8), 
     sharex=True,sharey=True, dpi=dpi)
