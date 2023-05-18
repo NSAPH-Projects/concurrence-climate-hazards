@@ -21,31 +21,70 @@ def get_counties():
 
 def get_hotspopt_dict():
     hsdict = {
-        'wfday':{"title":"wildfire", "title_map":"Total days of wildfire", "year_min":'2007', "year_max":'2022'},
-        'heatday':{"title":"heat", "title_map":"Total days of heat", "year_min":'2007', "year_max":'2022'},
-        'coldday':{"title":"cold", "title_map":"Total cold days", "year_min":'2007', "year_max":'2022'},
-        'polluted':{"title":"pollution", "title_map":"Total days of pollution", "year_min":'2007', "year_max":'2021'},
-        'smoke_polluted':{"title":"smoke pollution", "title_map":"Total days of smoke pollution", "year_min":'2007', "year_max":'2021'},
-        "hwp":{"title":"heat & wildfire & pollution", "title_map":"Total days of heat & wildfire & pollution", "year_min":'2007', "year_max":'2021'},
-        "hws":{
-            "title":"heat & wildfire & smoke pollution",
-            "title_map":"Total days of heat & wildfire & smoke pollution",
-            "year_min":'2007',
-            "year_max":'2021'},
-        "hp":{"title":"heat & pollution", "title_map":"Total days of heat & pollution", "year_min":'2007', "year_max":'2021'},
-        "hs":{"title":"heat & smoke pollution",
-            "title_map":"Total days of heat & smoke pollution",
-            "year_min":'2007',
-            "year_max":'2021'},
-        "hw":{"title":"heat & wildfire", "title_map":"Total days of heat & wildfire", "year_min":'2007', "year_max":'2022'},
-        "ws":{
-            "title":"wildfire & smoke pollution", 
-            "title_map":"Total days of wildfire & smoke pollution", "year_min":'2007', "year_max":'2021'},      
-        'hwps':{
-            "title":"heat or wildfire or pollution",  
-            "title_map":"Totay days of heat or wildfire or pollution",
-            "year_min":'2007',
-            "year_max":'2021'}
+        "wfday": {
+            "title": "wildfire",
+            "title_map": "Total days of wildfire",
+        },
+        "heatday": {
+            "title": "heat",
+            "title_map": "Total days of heat (over 95th percentile over last 5 years)",
+        },
+        "coldday": {
+            "title": "cold",
+            "title_map": "Total cold days (under 5th percentile over last 5 years)",
+        },
+        "polluted": {
+            "title": "pollution",
+            "title_map": "Total days of high air pollution (over 35 μg/m3)",
+        },
+        "smoke_pm_non_zero": {
+            "title": "smoke_pm_non_zero",
+            "title_map": "Total days of smoke pollution (non zero)",
+        },
+        "smoke_pm_gt_five": {
+            "title": "smoke_pm_gt_five",
+            "title_map": "Total days of smoke pollution (over >5μg/m3)",
+        },
+        "hwp": {
+            "title": "heat_wildfire_pollution",
+            "title_map": "Total days of heat, wildfire and pollution concurrence",
+        },
+        "hws": {
+            "title": "heat_wildfire_smoke_pollution_non_zero",
+            "title_map": "Total days of heat, wildfire and non-zero smoke pollution concurrence",
+        },
+        "hp": {
+            "title": "heat_pollution",
+            "title_map": "Total days of heat and pollution concurrence",
+        },
+        "hs": {
+            "title": "heat_smoke_pollution_non_zero",
+            "title_map": "Total days of heat and non-zero smoke pollution concurrence",
+        },
+        "hw": {
+            "title": "heat_wildfire",
+            "title_map": "Total days of heat and wildfire concurrence",
+        },
+        "ws": {
+            "title": "wildfire_smoke_pollution_non_zero",
+            "title_map": "Total days of wildfire & smoke pollution",
+        },
+        "hwps": {
+            "title": "heat_wildfire_pollution",
+            "title_map": "Totay days of heat or wildfire or pollution",
+        },
+        "hs5": {
+            "title": "heat_smoke_pollution_over_five",
+            "title_map": "Total days of heat and smoke pollution (over >5μg/m3) concurrence",
+        },
+        "hws5": {
+            "title": "heat_wildfire & smoke_pollution_over_five",
+            "title_map": "Total days of heat, wildfire and smoke pollution (over >5μg/m3) concurrence",
+        },
+        "ws5": {
+            "title": "wildfire_smoke_pollution_over_five",
+            "title_map": "Total days of wildfire and smoke pollution (over >5μg/m3) concurrence",
+        },
     }
     return hsdict
 
@@ -71,24 +110,35 @@ def statePlot(df, data, title, cmap, zoom, dpi):
     plt.show()
 
     
-def trend_plot(trends_df, l, hotspot, title, year_min='2006', year_max='2021'):
-    f, ax = plt.subplots(1,1, figsize = (4,3))
-    sns.lineplot(data = trends_df, x="time", y=hotspot, ax=ax)
+def trend_plot(trends_df, l, hotspot, title, title_map, year_min="2006", year_max="2021"):
+    f, ax = plt.subplots(1, 1, figsize=(4, 3))
+    sns.lineplot(data=trends_df, x="time", y=hotspot, ax=ax)
 
-    sns.lineplot(data = trends_df[
-        trends_df.FIPS.isin(l)], 
-                 x="time", 
-                 y=hotspot, 
-                 hue="FIPS", 
-                 palette="tab10",
-                 ax=ax)
+    sns.lineplot(
+        data=trends_df,
+        x="time",
+        y=hotspot,
+        ax=ax,
+        linestyle="--",
+        color="black",
+        linewidth=2.5,
+    )
+    
+    sns.lineplot(
+        data=trends_df[trends_df.GEOID.isin(l)],
+        x="time",
+        y=hotspot,
+        hue="GEOID",
+        palette="tab10",
+        ax=ax,
+    )
 
     plt.xlabel("Year")
     plt.ylabel("Number of days of concurrence")
-    plt.title(title)
+    plt.title(title_map)
     plt.xlim([pd.to_datetime(year_min), pd.to_datetime(year_max)])
     plt.tight_layout()
-    plt.savefig("figures/trends_"+title+".png")
+    plt.savefig("figures/trends_" + title + ".png")
 
 
 def draw_map(df, counties, hotspot, title):
