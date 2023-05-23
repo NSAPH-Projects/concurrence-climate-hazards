@@ -35,7 +35,7 @@ def get_hotspopt_dict():
         },
         "polluted": {
             "title": "pollution",
-            "title_map": "Total days of high air pollution (over 35 μg/m3)",
+            "title_map": "Total days of high air pollution (over 35 μg/m\u00b3)",
         },
         "smoke_pm_non_zero": {
             "title": "smoke_pm_non_zero",
@@ -43,7 +43,7 @@ def get_hotspopt_dict():
         },
         "smoke_pm_gt_five": {
             "title": "smoke_pm_gt_five",
-            "title_map": "Total days of smoke pollution (over >5μg/m3)",
+            "title_map": "Total days of smoke pollution (over >5μg/m\u00b3)",
         },
         "hwp": {
             "title": "heat_wildfire_pollution",
@@ -75,15 +75,15 @@ def get_hotspopt_dict():
         },
         "hs5": {
             "title": "heat_smoke_pollution_over_five",
-            "title_map": "Total days of heat and smoke pollution (over >5μg/m3) concurrence",
+            "title_map": "Total days of heat and smoke pollution (over >5μg/m\u00b3) concurrence",
         },
         "hws5": {
             "title": "heat_wildfire & smoke_pollution_over_five",
-            "title_map": "Total days of heat, wildfire and smoke pollution (over >5μg/m3) concurrence",
+            "title_map": "Total days of heat, wildfire and smoke pollution (over >5μg/m\u00b3) concurrence",
         },
         "ws5": {
             "title": "wildfire_smoke_pollution_over_five",
-            "title_map": "Total days of wildfire and smoke pollution (over >5μg/m3) concurrence",
+            "title_map": "Total days of wildfire and smoke pollution (over >5μg/m\u00b3) concurrence",
         },
     }
     return hsdict
@@ -105,7 +105,7 @@ def get_hotspopt_dict_county():
         },
         "polluted": {
             "title": "pollution",
-            "title_map": "Total days of high air pollution (over 35 μg/m3)",
+            "title_map": "Total days of high air pollution (over 35 μg/m\u00b3)",
         },
         "smoke_polluted": {
             "title": "smoke_polluted",
