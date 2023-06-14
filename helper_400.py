@@ -53,6 +53,25 @@ hotspots = {
 }
 
 
+def get_cut_vars(hspt, col):
+    if hspt in ["wfday"]:
+        return hotspots[hspt]["func"](
+            col,
+            bins=pd.IntervalIndex.from_tuples(
+                [(0, 1), (1, 10), (10, 50), (50, 100), (100, 1000)]
+            ),
+        )
+    elif hspt in ["ws", "hw", "hws", "hws5", "ws5"]:
+        return hotspots[hspt]["func"](
+            col,
+            bins=pd.IntervalIndex.from_tuples(
+                [(0, 1), (1, 10), (10, 20), (20, 50), (50, 1000)]
+            ),
+        )
+    else:
+        return hotspots[hspt]["func"](col, 5, labels=False, duplicates="drop")
+
+
 def get_svi_df(cols):
     df = pd.read_csv("data/California.csv", usecols=cols, dtype={"FIPS": int})
     return df
@@ -83,13 +102,21 @@ def get_exposure_df():
     return exposure
 
 
-def plot_qbar(exposure_per_category, hotspot, figname=False, legloc="lower right"):
+def plot_qbar(
+    exposure_per_category,
+    hotspot,
+    figname=False,
+    xlabel="Exposure level (higher is worse)",
+    legloc="lower right",
+):
     """Plots the bar chart"""
 
     # Melt the DataFrame to long format
     epc = exposure_per_category.reset_index().melt(
         id_vars="exposure_category", var_name="Hue", value_name="Proportion"
     )
+    if hotspot in ["wfday", "ws", "hw", "hws", "hws5", "ws5"]:
+        xlabel = "Days (intervals) of exposure"
 
     # Plot the bar chart using Seaborn
     plt.figure(figsize=(5, 4))
@@ -101,7 +128,7 @@ def plot_qbar(exposure_per_category, hotspot, figname=False, legloc="lower right
         + " exposure days"
     )
     plt.ylabel("Proportion of the demographic group (%)")
-    plt.xlabel("Exposure level (higher is worse)")
+    plt.xlabel(xlabel)
     plt.legend(title="Group", loc=legloc)
     plt.xticks(rotation=0)
     # ax.set_yscale('log')
