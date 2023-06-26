@@ -14,7 +14,7 @@ def set_sns_style():
     sns.set_palette("colorblind")
 
     # Set the font family
-    plt.rcParams["font.family"] = "serif"
+    plt.rcParams["font.family"] = "PT Serif"
 
     # Set the font size
     plt.rcParams["font.size"] = 12
