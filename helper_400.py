@@ -120,7 +120,15 @@ def plot_qbar(
 
     # Plot the bar chart using Seaborn
     plt.figure(figsize=(5, 4))
-    sns.barplot(data=epc, x="exposure_category", y="Proportion", hue="Hue")
+    sns.barplot(
+        data=epc,
+        x="exposure_category",
+        y="Proportion",
+        hue="Hue",
+        errorbar="sd",
+        capsize=0.4,
+        errcolor=".5",
+    )
 
     plt.title(
         "Quantile-based demographic discretization \n per "
