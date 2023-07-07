@@ -22,6 +22,31 @@ def get_counties():
     return counties
 
 
+def get_hotspot_list():
+    hspts = [
+        "wfday",
+        "heatday",
+        "smoke_pm_non_zero",
+        "smoke_pm_gt_five",
+        "hw",
+        "_hws",
+        "hs",
+        "hws",
+        "ws",
+        "hs5",
+        "hws5",
+        "ws5",
+        "heatday_2d",
+        "smoke_pm_non_zero_2d",
+        "wfday_2d",
+        "_hws_2d",
+        "hs_2d",
+        "hws_2d",
+        "ws_2d",
+    ]
+    return hspts
+
+
 def get_hotspopt_dict():
     hsdict = {
         "wfday": {

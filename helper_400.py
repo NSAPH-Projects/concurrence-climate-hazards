@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from collections import defaultdict
 
 
 def set_sns_style():
@@ -30,46 +31,69 @@ def get_var_name(short):
         "hw": "heat-wildfire",
         "hs": "heat-smoke",
         "hws": "heat-wildfire-smoke",
+        "_hws": "heat or wildfire or smoke",
         "ws": "wildfire-smoke",
         "hs5": "heat-smoke (over 5 μg/m\u00b3)",
         "hws5": "heat-wildfire-smoke (over 5 μg/m\u00b3)",
         "ws5": "wildfire-smoke (over 5 μg/m\u00b3)",
     }
+    if short[-2:] == "2d":
+        return options[short[:-3]] + " (2-day)"
     return options.get(short)
 
 
-hotspots = {
-    "wfday": {"func": pd.cut},
-    "heatday": {"func": pd.qcut},
-    "ws": {"func": pd.cut},
-    "hw": {"func": pd.cut},
-    "hs": {"func": pd.qcut},
-    "hws": {"func": pd.cut},
-    "hs5": {"func": pd.qcut},
-    "hws5": {"func": pd.cut},
-    "ws5": {"func": pd.cut},
-    "smoke_pm_non_zero": {"func": pd.qcut},
-    "smoke_pm_gt_five": {"func": pd.qcut},
-}
+# hotspots_init = {
+#     "wfday": {"func": pd.cut},
+#     "heatday": {"func": pd.qcut},
+#     "ws": {"func": pd.cut},
+#     "hw": {"func": pd.cut},
+#     "hs": {"func": pd.qcut},
+#     "hws": {"func": pd.cut},
+#     "hws_": {"func": pd.qcut},
+#     "hs5": {"func": pd.qcut},
+#     "hws5": {"func": pd.cut},
+#     "ws5": {"func": pd.cut},
+#     "smoke_pm_non_zero": {"func": pd.qcut},
+#     "smoke_pm_gt_five": {"func": pd.qcut},
+# }
+
+# # Create defaultdict from existing dictionary, with 'other' as the default value
+# hotspots = defaultdict(lambda: {"func": pd.cut}, hotspots_init)
+
+
+def get_title(hspt):
+    """Returns the title for a given hotspot"""
+
+    prefix = ""
+    if "wfday" in hspt:
+        prefix = "The "
+    else:
+        prefix = "Quantile-based "
+    return (
+        prefix + get_var_name(hspt) + " exposure-day discretization \n per demography"
+    )
 
 
 def get_cut_vars(hspt, col):
-    if hspt in ["wfday"]:
-        return hotspots[hspt]["func"](
+    """Returns the cut variables for a given hotspot"""
+
+    if "_hws" in hspt:
+        return pd.qcut(col, 5, labels=["I", "II", "III", "IV", "V"], duplicates="drop")
+    if hspt in ["hw", "hws", "ws", "hws5", "ws5", "hws_2d", "ws_2d"]:
+        return pd.cut(
             col,
             bins=pd.IntervalIndex.from_tuples(
-                [(0, 1), (1, 10), (10, 50), (50, 100), (100, 1000)]
+                [(0, 1), (1, 10), (10, 20), (20, 30), (30, 1000)], closed="left"
             ),
         )
-    elif hspt in ["ws", "hw", "hws", "hws5", "ws5"]:
-        return hotspots[hspt]["func"](
+    if "wfday" in hspt:
+        return pd.cut(
             col,
             bins=pd.IntervalIndex.from_tuples(
-                [(0, 1), (1, 10), (10, 20), (20, 50), (50, 1000)]
+                [(0, 1), (1, 10), (10, 50), (50, 100), (100, 1000)], closed="left"
             ),
         )
-    else:
-        return hotspots[hspt]["func"](col, 5, labels=False, duplicates="drop")
+    return pd.qcut(col, 5, labels=["I", "II", "III", "IV", "V"], duplicates="drop")
 
 
 def get_svi_df(cols):
