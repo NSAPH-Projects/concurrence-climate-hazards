@@ -61,7 +61,7 @@ def get_var_name(short):
 # hotspots = defaultdict(lambda: {"func": pd.cut}, hotspots_init)
 
 
-def get_title(hspt):
+def get_title(hspt, line_break=True):
     """Returns the title for a given hotspot"""
 
     prefix = ""
@@ -69,9 +69,17 @@ def get_title(hspt):
         prefix = "The "
     else:
         prefix = "Quantile-based "
-    return (
-        prefix + get_var_name(hspt) + " exposure-day discretization \n per demography"
-    )
+
+    if line_break:
+        return (
+            prefix
+            + get_var_name(hspt)
+            + " exposure-day discretization \n per demography"
+        )
+    else:
+        return (
+            prefix + get_var_name(hspt) + " exposure-day discretization per demography"
+        )
 
 
 def get_cut_vars(hspt, col):
