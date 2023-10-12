@@ -28,7 +28,7 @@ This helps in identifying days and places that have a high concentration of mult
 
 1. `200_merge_data.ipynb`: Merging different data sources.
 2. `250_get_metrics.ipynb`: Retrieving key metrics such as heat day and wildfire day for analysis.
-3. `301_hotspots.ipynb`: Identify co-exposure hotspots.
+3. `301_hotspots.ipynb`: Identify co-exposure hotspots. `301_stats_hotspots.ipynb`: Get stats for each of the hotspots.
 4. `302_hotspots_agg_plt_svi.ipynb`: Aggregated hotspot data with SVI.
 5. `303_lineplot_hotspot_trends.ipynb`: Line plots depicting hotspot trends.
 6. `305_hotspot_profiling.ipynb`: Profiling of hotspots.
