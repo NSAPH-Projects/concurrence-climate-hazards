@@ -47,6 +47,40 @@ def get_hotspot_list():
     return hspts
 
 
+def get_core_dict():
+    hsdict = {
+        "wfday": {
+            "title": "wildfire",
+            "title_map": "Total days of wildfire burn zones",
+        },
+        "heatday": {
+            "title": "heat",
+            "title_map": "Total days of extreme heat",
+        },
+        "smoke_pm_non_zero": {
+            "title": "smoke_pm_non_zero",
+            "title_map": r"Total days of wildfire smoke",
+        },
+        "hws": {
+            "title": "heat_wildfire_smoke_pollution_non_zero",
+            "title_map": r"Total days of extreme heat, wildfire burn zones and wildfire smoke co-occurrence",
+        },
+        "hs": {
+            "title": "heat_smoke_pollution_non_zero",
+            "title_map": r"Total days of extreme heat and wildfire smoke co-occurrence",
+        },
+        "hw": {
+            "title": "heat_wildfire",
+            "title_map": "Total days of extreme heat and wildfire burn zones co-occurrence",
+        },
+        "ws": {
+            "title": "wildfire_smoke_pollution_non_zero",
+            "title_map": r"Total days of wildfire burn zones & wildfire smoke co-occurrence",
+        },
+    }
+    return hsdict
+
+
 def get_hotspopt_dict():
     hsdict = {
         "wfday": {
@@ -55,7 +89,7 @@ def get_hotspopt_dict():
         },
         "heatday": {
             "title": "heat",
-            "title_map": "Total days of heat (over 95th percentile over last 5 years)",
+            "title_map": "Total days of heat",
         },
         "coldday": {
             "title": "cold",
@@ -63,15 +97,15 @@ def get_hotspopt_dict():
         },
         "polluted": {
             "title": "pollution",
-            "title_map": "Total days of high air pollution (over 35 μg/m\u00b3)",
+            "title_map": "Total days of high pollution $PM_{2.5}$ (over 35 μg/m\u00b3)",
         },
         "smoke_pm_non_zero": {
             "title": "smoke_pm_non_zero",
-            "title_map": r"Total days of smoke $PM_{2.5}$ (non zero)",
+            "title_map": r"Total days of smoke $PM_{2.5}$",
         },
         "smoke_pm_gt_five": {
             "title": "smoke_pm_gt_five",
-            "title_map": r"Total days of smoke $PM_{2.5}$ (over >5μg/$m^3$)",
+            "title_map": r"Total days of wildfire smoke (over >5μg/$m^3$)",
         },
         "hwp": {
             "title": "heat_wildfire_pollution",
@@ -79,7 +113,7 @@ def get_hotspopt_dict():
         },
         "hws": {
             "title": "heat_wildfire_smoke_pollution_non_zero",
-            "title_map": r"Total days of heat, wildfire and non-zero smoke $PM_{2.5}$ concurrence",
+            "title_map": r"Total days of heat, wildfire and smoke $PM_{2.5}$ concurrence",
         },
         "hp": {
             "title": "heat_pollution",
@@ -87,7 +121,7 @@ def get_hotspopt_dict():
         },
         "hs": {
             "title": "heat_smoke_pollution_non_zero",
-            "title_map": r"Total days of heat and non-zero smoke $PM_{2.5}$ concurrence",
+            "title_map": r"Total days of heat and smoke $PM_{2.5}$ concurrence",
         },
         "hw": {
             "title": "heat_wildfire",
@@ -123,7 +157,7 @@ def get_hotspopt_dict():
         },
         "heatday_2d": {
             "title": "heat_2D",
-            "title_map": "Total days of heat (over 95th percentile over last 5 years) (2D)",
+            "title_map": "Total days of heat (2D)",
         },
         "_hws_2d": {
             "title": "heat_or_wildfire_or_smoke_pollution_2D",
